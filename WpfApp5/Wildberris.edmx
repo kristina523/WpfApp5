@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище WILDBERModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BUYER">
+          <Key>
+            <PropertyRef Name="ID_BUYER" />
+          </Key>
+          <Property Name="ID_BUYER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SURNAME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="TELEPHONENUMBER" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GOOD">
+          <Key>
+            <PropertyRef Name="ID_GOOD" />
+          </Key>
+          <Property Name="ID_GOOD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAMEGOOD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRISE" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BRAND" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="ID_ORDERS" />
+          </Key>
+          <Property Name="ID_ORDERS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GOODS_ID" Type="int" Nullable="false" />
+          <Property Name="BUYERS_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ORDERS__BUYERS_I__3C69FB99">
+          <End Role="BUYER" Type="Self.BUYER" Multiplicity="1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUYER">
+              <PropertyRef Name="ID_BUYER" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="BUYERS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDERS__GOODS_ID__3B75D760">
+          <End Role="GOOD" Type="Self.GOOD" Multiplicity="1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOOD">
+              <PropertyRef Name="ID_GOOD" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="GOODS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище WILDBERModelContainer">
+          <EntitySet Name="BUYER" EntityType="Self.BUYER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GOOD" EntityType="Self.GOOD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ORDERS__BUYERS_I__3C69FB99" Association="Self.FK__ORDERS__BUYERS_I__3C69FB99">
+            <End Role="BUYER" EntitySet="BUYER" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDERS__GOODS_ID__3B75D760" Association="Self.FK__ORDERS__GOODS_ID__3B75D760">
+            <End Role="GOOD" EntitySet="GOOD" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WILDBERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BUYER">
+          <Key>
+            <PropertyRef Name="ID_BUYER" />
+          </Key>
+          <Property Name="ID_BUYER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEPHONENUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__BUYERS_I__3C69FB99" FromRole="BUYER" ToRole="ORDERS" />
+        </EntityType>
+        <EntityType Name="GOOD">
+          <Key>
+            <PropertyRef Name="ID_GOOD" />
+          </Key>
+          <Property Name="ID_GOOD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAMEGOOD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRISE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BRAND" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__GOODS_ID__3B75D760" FromRole="GOOD" ToRole="ORDERS" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="ID_ORDERS" />
+          </Key>
+          <Property Name="ID_ORDERS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GOODS_ID" Type="Int32" Nullable="false" />
+          <Property Name="BUYERS_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BUYER" Relationship="Self.FK__ORDERS__BUYERS_I__3C69FB99" FromRole="ORDERS" ToRole="BUYER" />
+          <NavigationProperty Name="GOOD" Relationship="Self.FK__ORDERS__GOODS_ID__3B75D760" FromRole="ORDERS" ToRole="GOOD" />
+        </EntityType>
+        <Association Name="FK__ORDERS__BUYERS_I__3C69FB99">
+          <End Role="BUYER" Type="Self.BUYER" Multiplicity="1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUYER">
+              <PropertyRef Name="ID_BUYER" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="BUYERS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDERS__GOODS_ID__3B75D760">
+          <End Role="GOOD" Type="Self.GOOD" Multiplicity="1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOOD">
+              <PropertyRef Name="ID_GOOD" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="GOODS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WILDBEREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BUYER" EntityType="Self.BUYER" />
+          <EntitySet Name="GOOD" EntityType="Self.GOOD" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" />
+          <AssociationSet Name="FK__ORDERS__BUYERS_I__3C69FB99" Association="Self.FK__ORDERS__BUYERS_I__3C69FB99">
+            <End Role="BUYER" EntitySet="BUYER" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDERS__GOODS_ID__3B75D760" Association="Self.FK__ORDERS__GOODS_ID__3B75D760">
+            <End Role="GOOD" EntitySet="GOOD" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище WILDBERModelContainer" CdmEntityContainer="WILDBEREntities">
+          <EntitySetMapping Name="BUYER">
+            <EntityTypeMapping TypeName="WILDBERModel.BUYER">
+              <MappingFragment StoreEntitySet="BUYER">
+                <ScalarProperty Name="ID_BUYER" ColumnName="ID_BUYER" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="TELEPHONENUMBER" ColumnName="TELEPHONENUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GOOD">
+            <EntityTypeMapping TypeName="WILDBERModel.GOOD">
+              <MappingFragment StoreEntitySet="GOOD">
+                <ScalarProperty Name="ID_GOOD" ColumnName="ID_GOOD" />
+                <ScalarProperty Name="NAMEGOOD" ColumnName="NAMEGOOD" />
+                <ScalarProperty Name="PRISE" ColumnName="PRISE" />
+                <ScalarProperty Name="BRAND" ColumnName="BRAND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="WILDBERModel.ORDERS">
+              <MappingFragment StoreEntitySet="ORDERS">
+                <ScalarProperty Name="ID_ORDERS" ColumnName="ID_ORDERS" />
+                <ScalarProperty Name="GOODS_ID" ColumnName="GOODS_ID" />
+                <ScalarProperty Name="BUYERS_ID" ColumnName="BUYERS_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
